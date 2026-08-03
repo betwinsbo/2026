@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Betwins</title>
-  <!-- Fuentes e iconos (Font Awesome) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     /* RESET Y VARIABLES */
@@ -29,7 +28,7 @@
 
     /* ===== HEADER / BANNER AZUL ANIMADO ===== */
     .top-banner {
-      background: #1a3b5c; /* Azul marino */
+      background: #1a3b5c;
       color: white;
       overflow: hidden;
       white-space: nowrap;
@@ -179,6 +178,7 @@
       padding: 15px;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      flex-shrink: 0;
     }
 
     .carrusel-item h4 {
@@ -195,7 +195,6 @@
       display: block;
     }
 
-    /* Controles del carrusel */
     .carrusel-controls {
       display: flex;
       justify-content: center;
@@ -223,7 +222,7 @@
       margin-top: 30px;
     }
 
-    /* ===== SECCIÓN WHATSAPP / LOGO ===== */
+    /* ===== SECCIÓN WHATSAPP ===== */
     .whatsapp-section {
       padding: 50px 0;
       background: #f9f7f5;
@@ -247,8 +246,8 @@
     }
 
     .whatsapp-content p {
-      margin-bottom: 20px;
       color: #555;
+      margin-bottom: 20px;
     }
 
     .btn-whatsapp {
@@ -340,14 +339,21 @@
 <div class="top-banner">
   <div class="banner-track">
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
+    <span> ✦ </span>
     <span> Betwins </span>
-   
+    <span> ✦ </span>
   </div>
 </div>
 
@@ -367,7 +373,7 @@
     </div>
     <div class="about-content">
       <h2>About Us</h2>
-      <p>Hola twin, somos Nicole y Camila, hemos creado esta marca pensando en darte recursos para que explotes tu creatividad, identidad y potencial. Nuestro objetivo es acompañarte a descubrir que te gusta y sobre todo, que te hace sentir bien, que se refleje en tu dia a dia y crear en ti un impacto en tu manera de autopercibirte. </p>
+      <p>Hola twin, somos Nicole y Camila, hemos creado esta marca pensando en darte recursos para que explotes tu creatividad, identidad y potencial. Nuestro objetivo es acompañarte a descubrir que te gusta y sobre todo, que te hace sentir bien, que se refleje en tu dia a dia y crear en ti un impacto en tu manera de autopercibirte.</p>
       <a href="https://instagram.com" target="_blank" class="btn-instagram">
         <i class="fab fa-instagram"></i> Saber más
       </a>
@@ -380,26 +386,27 @@
   <h2>Best Sellers</h2>
   <div class="carrusel-wrapper">
     <div class="carrusel-track" id="carruselTrack">
-        <img src="images/1.jpg" alt="Producto 1">
-        <div class="nombre">Smart</div>
+      <div class="carrusel-item">
+        <h4>Smart</h4>
+        <img src="1.jpg" alt="Producto 1" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Cozy</h4>
+        <img src="2.jpg" alt="Producto 2" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Romantic</h4>
+        <img src="3.jpg" alt="Producto 3" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Golden Hour</h4>
+        <img src="4.jpg" alt="Producto 4" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Naked</h4>
+        <img src="5.jpg" alt="Producto 5" />
+      </div>
     </div>
-    <div class="carrusel-item">
-        <img src="images/2.jpg" alt="Producto 2">
-        <div class="nombre">Cozy</div>
-    </div>
-    <div class="carrusel-item">
-        <img src="images/3.jpg" alt="Producto 3">
-        <div class="nombre">Romantic</div>
-    </div>
-    <div class="carrusel-item">
-        <img src="images/4.jpg" alt="Producto 4">
-        <div class="nombre">Golden Hour</div>
-    </div>
-    <div class="carrusel-item">
-        <img src="images/5.jpg" alt="Producto 5">
-        <div class="nombre">Naked</div>
-    </div>
-</div>
   </div>
   <div class="carrusel-controls">
     <button id="btnPrev"><i class="fas fa-chevron-left"></i></button>
@@ -410,7 +417,7 @@
   </div>
 </section>
 
-<!-- ===== WHATSAPP / CONTACTO ===== -->
+<!-- ===== WHATSAPP ===== -->
 <section class="whatsapp-section">
   <div class="container whatsapp-grid">
     <div class="whatsapp-content">
@@ -421,7 +428,7 @@
       </a>
     </div>
     <div class="whatsapp-image">
-      <img src="IMG_6046.PNG" alt="Logo o imagen" />
+      <img src="logo.jpg" alt="Logo Betwins" />
     </div>
   </div>
 </section>
@@ -446,38 +453,55 @@
   const totalItems = items.length;
   let currentIndex = 0;
 
-  // Clonar los primeros y últimos elementos para el efecto infinito
+  function getItemsPerView() {
+    if (window.innerWidth < 480) return 1;
+    if (window.innerWidth < 768) return 2;
+    return 3;
+  }
+
   function initCarrusel() {
+    const itemsPerView = getItemsPerView();
+    const itemWidth = 100 / (totalItems + 2);
+
+    // Clonar primero y último para efecto infinito
     const firstClone = items[0].cloneNode(true);
     const lastClone = items[totalItems - 1].cloneNode(true);
     track.appendChild(firstClone);
     track.prepend(lastClone);
 
-    // Ajustar el track para que comience en el primer elemento real
-    track.style.transform = `translateX(-${100 / (totalItems + 2)}%)`;
-    currentIndex = 1; // porque el primer elemento real ahora está en índice 1
-  }
+    // Ajustar el ancho de los items
+    const allItems = track.querySelectorAll('.carrusel-item');
+    allItems.forEach(item => {
+      item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
+    });
 
-  function updateCarrusel() {
-    const itemWidth = 100 / (totalItems + 2);
+    // Posicionar en el primer item real (índice 1)
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${itemWidth}%)`;
+    currentIndex = 1;
+    track.offsetHeight;
     track.style.transition = 'transform 0.4s ease';
-    track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
+
+    window.itemWidth = itemWidth;
+    window.totalSlides = totalItems + 2;
   }
 
   function goTo(index) {
-    const itemWidth = 100 / (totalItems + 2);
+    const itemWidth = window.itemWidth || (100 / (totalItems + 2));
+    const total = window.totalSlides || (totalItems + 2);
+
     if (index < 0) {
-      // Ir al último real (sin transición)
+      // Ir al último real
       track.style.transition = 'none';
       currentIndex = totalItems;
       track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
-      // Forzar reflow
       track.offsetHeight;
-      // Luego ir al último real con transición
       currentIndex = totalItems - 1;
-      updateCarrusel();
+      track.style.transition = 'transform 0.4s ease';
+      track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
       return;
     }
+
     if (index >= totalItems) {
       // Ir al primer real
       track.style.transition = 'none';
@@ -485,12 +509,18 @@
       track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
       track.offsetHeight;
       currentIndex = 1;
-      updateCarrusel();
+      track.style.transition = 'transform 0.4s ease';
+      track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
       return;
     }
+
     currentIndex = index;
-    updateCarrusel();
+    track.style.transition = 'transform 0.4s ease';
+    track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
   }
+
+  // Inicializar
+  initCarrusel();
 
   // Eventos
   document.getElementById('btnNext').addEventListener('click', () => {
@@ -501,162 +531,24 @@
     goTo(currentIndex - 1);
   });
 
-  // Inicializar
-  initCarrusel();
-
-  // Ajustar el número de elementos visibles según el ancho
-  function getItemsPerView() {
-    if (window.innerWidth < 480) return 1;
-    if (window.innerWidth < 768) return 2;
-    return 3;
-  }
-
-  // Recalcular al redimensionar
-  // Por simplicidad, solo resetear el carrusel al cargar y en resize
+  // Recalcular en resize
   let resizeTimeout;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      // Resetear carrusel (podemos recargar la página o recrear)
-      // Solución simple: recargar la página (no ideal, pero funciona para demo)
-      // Mejor: recrear el track y los clones.
-      // Para mantenerlo simple, redirigiremos a la misma página.
-      // O podemos simplemente reiniciar la posición.
-      // Vamos a reiniciar la posición del carrusel sin recargar.
       const itemsPerView = getItemsPerView();
-      // Ajustar el ancho de los items
-      const items = track.querySelectorAll('.carrusel-item');
-      items.forEach(item => {
+      const allItems = track.querySelectorAll('.carrusel-item');
+      allItems.forEach(item => {
         item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
       });
-      // Recalcular la posición
+      // Recalcular posición
+      const itemWidth = 100 / (totalItems + 2);
+      window.itemWidth = itemWidth;
       track.style.transition = 'none';
-      track.style.transform = `translateX(-${1 * (100 / (items.length))}%)`;
+      track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
       track.offsetHeight;
       track.style.transition = 'transform 0.4s ease';
     }, 300);
-  });
-
-  // Inicializar items per view
-  const itemsPerView = getItemsPerView();
-  items.forEach(item => {
-    item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
-  });
-  // Ajustar el track después de clonar
-  // La función initCarrusel ya clona, pero necesitamos reajustar el ancho de los clones también.
-  // Para simplificar, vamos a redefinir la inicialización.
-  // Como es una demo, lo dejamos así, pero puedes adaptarlo.
-  // Una solución más robusta sería usar una librería de carrusel, pero mantenemos vanilla JS.
-  // Reiniciamos el carrusel con la función initCarrusel mejorada.
-  // Reemplazamos la función initCarrusel por una que maneje el responsive.
-  (function reinit() {
-    // Limpiar el track
-    track.innerHTML = '';
-    // Volver a agregar los 5 items originales
-    const originalItems = [
-      { name: 'Producto 1', img: 'https://placehold.co/300x300/eee/1a3b5c?text=1' },
-      { name: 'Producto 2', img: 'https://placehold.co/300x300/eee/1a3b5c?text=2' },
-      { name: 'Producto 3', img: 'https://placehold.co/300x300/eee/1a3b5c?text=3' },
-      { name: 'Producto 4', img: 'https://placehold.co/300x300/eee/1a3b5c?text=4' },
-      { name: 'Producto 5', img: 'https://placehold.co/300x300/eee/1a3b5c?text=5' }
-    ];
-    originalItems.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'carrusel-item';
-      div.innerHTML = `<h4>${item.name}</h4><img src="${item.img}" alt="${item.name}" />`;
-      track.appendChild(div);
-    });
-
-    const itemsPerView = getItemsPerView();
-    const items = track.querySelectorAll('.carrusel-item');
-    items.forEach(item => {
-      item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
-    });
-
-    // Clonar para el efecto infinito
-    const firstClone = items[0].cloneNode(true);
-    const lastClone = items[items.length - 1].cloneNode(true);
-    track.appendChild(firstClone);
-    track.prepend(lastClone);
-
-    // Ajustar posición inicial
-    const totalItemsWithClones = items.length + 2;
-    const itemWidth = 100 / totalItemsWithClones;
-    track.style.transition = 'none';
-    track.style.transform = `translateX(-${itemWidth}%)`;
-    currentIndex = 1;
-    track.offsetHeight;
-    track.style.transition = 'transform 0.4s ease';
-
-    // Guardar referencias para los controles
-    window.currentIndex = currentIndex;
-    window.totalItemsWithClones = totalItemsWithClones;
-    window.itemWidth = itemWidth;
-  })();
-
-  // Actualizar función goTo para usar las variables globales
-  const originalGoTo = goTo;
-  goTo = function(index) {
-    const total = window.totalItemsWithClones || (items.length + 2);
-    const itemWidth = window.itemWidth || (100 / total);
-    if (index < 0) {
-      track.style.transition = 'none';
-      window.currentIndex = total - 2;
-      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
-      track.offsetHeight;
-      window.currentIndex = total - 3;
-      track.style.transition = 'transform 0.4s ease';
-      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
-      return;
-    }
-    if (index >= total - 1) {
-      track.style.transition = 'none';
-      window.currentIndex = 1;
-      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
-      track.offsetHeight;
-      window.currentIndex = 1;
-      track.style.transition = 'transform 0.4s ease';
-      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
-      return;
-    }
-    window.currentIndex = index;
-    track.style.transition = 'transform 0.4s ease';
-    track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
-  };
-
-  // Reasignar eventos
-  document.getElementById('btnNext').onclick = () => {
-    goTo(window.currentIndex + 1);
-  };
-  document.getElementById('btnPrev').onclick = () => {
-    goTo(window.currentIndex - 1);
-  };
-
-  // Recalcular en resize
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      // Recargar la página para simplificar (opcional)
-      // Para una demo, podríamos recargar, pero mejor reiniciamos el carrusel.
-      // Como es una demo, recargamos la página.
-      // window.location.reload();
-      // Pero para no perder el estado, podemos ajustar el ancho de los items
-      const items = track.querySelectorAll('.carrusel-item');
-      const itemsPerView = getItemsPerView();
-      items.forEach(item => {
-        item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
-      });
-      // Recalcular total
-      const total = items.length;
-      const itemWidth = 100 / total;
-      track.style.transition = 'none';
-      track.style.transform = `translateX(-${itemWidth}%)`;
-      window.currentIndex = 1;
-      window.totalItemsWithClones = total;
-      window.itemWidth = itemWidth;
-      track.offsetHeight;
-      track.style.transition = 'transform 0.4s ease';
-    }, 400);
   });
 </script>
 </body>
