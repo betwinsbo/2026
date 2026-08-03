@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Betwins</title>
+  <!-- Fuentes e iconos (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* RESET Y VARIABLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #ffffff;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== HEADER / BANNER AZUL ANIMADO ===== */
+    .top-banner {
+      background: #1a3b5c; /* Azul marino */
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 10px 0;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .top-banner .banner-track {
+      display: inline-block;
+      animation: scrollBanner 18s linear infinite;
+    }
+
+    .top-banner span {
+      margin: 0 40px;
+    }
+
+    @keyframes scrollBanner {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== SECCIÓN PORTADA ===== */
+    .hero-section {
+      padding: 40px 0 30px;
+      text-align: center;
+    }
+
+    .hero-image {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .btn-catalogo {
+      display: inline-block;
+      margin-top: 25px;
+      background: #1a3b5c;
+      color: white;
+      padding: 12px 40px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .btn-catalogo:hover {
+      background: #0f2a42;
+    }
+
+    /* ===== SECCIÓN ABOUT ===== */
+    .about-section {
+      padding: 60px 0;
+      background: #f9f7f5;
+    }
+
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .about-image {
+      flex: 1 1 280px;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .about-content {
+      flex: 1 1 280px;
+    }
+
+    .about-content h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #1a3b5c;
+    }
+
+    .about-content p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .btn-instagram {
+      background: #d62976;
+      color: white;
+      padding: 10px 30px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .btn-instagram:hover {
+      background: #b01b5e;
+    }
+
+    /* ===== CARRUSEL BEST SELLERS ===== */
+    .bestsellers-section {
+      padding: 60px 0;
+      background: white;
+    }
+
+    .bestsellers-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #1a3b5c;
+    }
+
+    .carrusel-wrapper {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carrusel-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .carrusel-item {
+      min-width: calc(100% / 3 - 15px);
+      background: #f9f7f5;
+      border-radius: 20px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .carrusel-item h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #1a3b5c;
+    }
+
+    .carrusel-item img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* Controles del carrusel */
+    .carrusel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .carrusel-controls button {
+      background: #1a3b5c;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s;
+    }
+
+    .carrusel-controls button:hover {
+      background: #0f2a42;
+    }
+
+    .btn-catalogo-centrado {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    /* ===== SECCIÓN WHATSAPP / LOGO ===== */
+    .whatsapp-section {
+      padding: 50px 0;
+      background: #f9f7f5;
+    }
+
+    .whatsapp-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .whatsapp-content {
+      flex: 1 1 250px;
+    }
+
+    .whatsapp-content h3 {
+      font-size: 1.5rem;
+      color: #1a3b5c;
+      margin-bottom: 10px;
+    }
+
+    .whatsapp-content p {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ebe5c;
+    }
+
+    .whatsapp-image {
+      flex: 1 1 250px;
+      text-align: right;
+    }
+
+    .whatsapp-image img {
+      max-width: 100%;
+      border-radius: 20px;
+      display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #1a3b5c;
+      color: white;
+      padding: 30px 0 20px;
+      text-align: center;
+    }
+
+    .footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 15px;
+    }
+
+    .footer .social-icons a {
+      color: white;
+      font-size: 1.6rem;
+      transition: opacity 0.3s;
+    }
+
+    .footer .social-icons a:hover {
+      opacity: 0.7;
+    }
+
+    .footer p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .about-grid, .whatsapp-grid {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .whatsapp-image {
+        text-align: center;
+      }
+
+      .carrusel-item {
+        min-width: calc(100% / 2 - 10px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .carrusel-item {
+        min-width: 100%;
+      }
+
+      .hero-image {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ANIMADO ===== -->
+<div class="top-banner">
+  <div class="banner-track">
+    <span> Betwins </span>
+    <span> Betwins </span>
+    <span> Betwins </span>
+    <span> Betwins </span>
+    <span> Betwins </span>
+    <span> Betwins </span>
+    <span> Betwins </span>
+    <span> Betwins </span>
+   
+  </div>
+</div>
+
+<!-- ===== PORTADA ===== -->
+<section class="hero-section container">
+  <div class="hero-image">
+    <img src="portada.jpg" alt="Portada Betwins" />
+  </div>
+  <a href="#" class="btn-catalogo">Catálogo</a>
+</section>
+
+<!-- ===== ABOUT US ===== -->
+<section class="about-section">
+  <div class="container about-grid">
+    <div class="about-image">
+      <img src="about.jpg" alt="About" />
+    </div>
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>Hola twin, somos Nicole y Camila, hemos creado esta marca pensando en darte recursos para que explotes tu creatividad, identidad y potencial. Nuestro objetivo es acompañarte a descubrir que te gusta y sobre todo, que te hace sentir bien, que se refleje en tu dia a dia y crear en ti un impacto en tu manera de autopercibirte. </p>
+      <a href="https://instagram.com" target="_blank" class="btn-instagram">
+        <i class="fab fa-instagram"></i> Saber más
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEST SELLERS CARRUSEL ===== -->
+<section class="bestsellers-section container">
+  <h2>Best Sellers</h2>
+  <div class="carrusel-wrapper">
+    <div class="carrusel-track" id="carruselTrack">
+      <!-- Cada item: nombre + imagen -->
+      <div class="carrusel-item">
+        <h4>Producto 1</h4>
+        <img src="https://placehold.co/300x300/eee/1a3b5c?text=1" alt="Producto 1" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Producto 2</h4>
+        <img src="https://placehold.co/300x300/eee/1a3b5c?text=2" alt="Producto 2" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Producto 3</h4>
+        <img src="https://placehold.co/300x300/eee/1a3b5c?text=3" alt="Producto 3" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Producto 4</h4>
+        <img src="https://placehold.co/300x300/eee/1a3b5c?text=4" alt="Producto 4" />
+      </div>
+      <div class="carrusel-item">
+        <h4>Producto 5</h4>
+        <img src="https://placehold.co/300x300/eee/1a3b5c?text=5" alt="Producto 5" />
+      </div>
+    </div>
+  </div>
+  <div class="carrusel-controls">
+    <button id="btnPrev"><i class="fas fa-chevron-left"></i></button>
+    <button id="btnNext"><i class="fas fa-chevron-right"></i></button>
+  </div>
+  <div class="btn-catalogo-centrado">
+    <a href="#" class="btn-catalogo">📋 Catálogo</a>
+  </div>
+</section>
+
+<!-- ===== WHATSAPP / CONTACTO ===== -->
+<section class="whatsapp-section">
+  <div class="container whatsapp-grid">
+    <div class="whatsapp-content">
+      <h3>¿Listo para tu pedido?</h3>
+      <p>Escríbenos por WhatsApp y te ayudamos a elegir lo que mejor se adapte a ti.</p>
+      <a href="https://wa.me/59112345678" target="_blank" class="btn-whatsapp">
+        <i class="fab fa-whatsapp"></i> Contáctanos
+      </a>
+    </div>
+    <div class="whatsapp-image">
+      <img src="https://placehold.co/400x300/eee/1a3b5c?text=Logo+o+imagen" alt="Logo o imagen" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="social-icons">
+      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p>&copy; 2025 Betwins - Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ===== CARRUSEL JS ===== -->
+<script>
+  const track = document.getElementById('carruselTrack');
+  const items = track.querySelectorAll('.carrusel-item');
+  const totalItems = items.length;
+  let currentIndex = 0;
+
+  // Clonar los primeros y últimos elementos para el efecto infinito
+  function initCarrusel() {
+    const firstClone = items[0].cloneNode(true);
+    const lastClone = items[totalItems - 1].cloneNode(true);
+    track.appendChild(firstClone);
+    track.prepend(lastClone);
+
+    // Ajustar el track para que comience en el primer elemento real
+    track.style.transform = `translateX(-${100 / (totalItems + 2)}%)`;
+    currentIndex = 1; // porque el primer elemento real ahora está en índice 1
+  }
+
+  function updateCarrusel() {
+    const itemWidth = 100 / (totalItems + 2);
+    track.style.transition = 'transform 0.4s ease';
+    track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
+  }
+
+  function goTo(index) {
+    const itemWidth = 100 / (totalItems + 2);
+    if (index < 0) {
+      // Ir al último real (sin transición)
+      track.style.transition = 'none';
+      currentIndex = totalItems;
+      track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
+      // Forzar reflow
+      track.offsetHeight;
+      // Luego ir al último real con transición
+      currentIndex = totalItems - 1;
+      updateCarrusel();
+      return;
+    }
+    if (index >= totalItems) {
+      // Ir al primer real
+      track.style.transition = 'none';
+      currentIndex = 1;
+      track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
+      track.offsetHeight;
+      currentIndex = 1;
+      updateCarrusel();
+      return;
+    }
+    currentIndex = index;
+    updateCarrusel();
+  }
+
+  // Eventos
+  document.getElementById('btnNext').addEventListener('click', () => {
+    goTo(currentIndex + 1);
+  });
+
+  document.getElementById('btnPrev').addEventListener('click', () => {
+    goTo(currentIndex - 1);
+  });
+
+  // Inicializar
+  initCarrusel();
+
+  // Ajustar el número de elementos visibles según el ancho
+  function getItemsPerView() {
+    if (window.innerWidth < 480) return 1;
+    if (window.innerWidth < 768) return 2;
+    return 3;
+  }
+
+  // Recalcular al redimensionar
+  // Por simplicidad, solo resetear el carrusel al cargar y en resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      // Resetear carrusel (podemos recargar la página o recrear)
+      // Solución simple: recargar la página (no ideal, pero funciona para demo)
+      // Mejor: recrear el track y los clones.
+      // Para mantenerlo simple, redirigiremos a la misma página.
+      // O podemos simplemente reiniciar la posición.
+      // Vamos a reiniciar la posición del carrusel sin recargar.
+      const itemsPerView = getItemsPerView();
+      // Ajustar el ancho de los items
+      const items = track.querySelectorAll('.carrusel-item');
+      items.forEach(item => {
+        item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
+      });
+      // Recalcular la posición
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${1 * (100 / (items.length))}%)`;
+      track.offsetHeight;
+      track.style.transition = 'transform 0.4s ease';
+    }, 300);
+  });
+
+  // Inicializar items per view
+  const itemsPerView = getItemsPerView();
+  items.forEach(item => {
+    item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
+  });
+  // Ajustar el track después de clonar
+  // La función initCarrusel ya clona, pero necesitamos reajustar el ancho de los clones también.
+  // Para simplificar, vamos a redefinir la inicialización.
+  // Como es una demo, lo dejamos así, pero puedes adaptarlo.
+  // Una solución más robusta sería usar una librería de carrusel, pero mantenemos vanilla JS.
+  // Reiniciamos el carrusel con la función initCarrusel mejorada.
+  // Reemplazamos la función initCarrusel por una que maneje el responsive.
+  (function reinit() {
+    // Limpiar el track
+    track.innerHTML = '';
+    // Volver a agregar los 5 items originales
+    const originalItems = [
+      { name: 'Producto 1', img: 'https://placehold.co/300x300/eee/1a3b5c?text=1' },
+      { name: 'Producto 2', img: 'https://placehold.co/300x300/eee/1a3b5c?text=2' },
+      { name: 'Producto 3', img: 'https://placehold.co/300x300/eee/1a3b5c?text=3' },
+      { name: 'Producto 4', img: 'https://placehold.co/300x300/eee/1a3b5c?text=4' },
+      { name: 'Producto 5', img: 'https://placehold.co/300x300/eee/1a3b5c?text=5' }
+    ];
+    originalItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'carrusel-item';
+      div.innerHTML = `<h4>${item.name}</h4><img src="${item.img}" alt="${item.name}" />`;
+      track.appendChild(div);
+    });
+
+    const itemsPerView = getItemsPerView();
+    const items = track.querySelectorAll('.carrusel-item');
+    items.forEach(item => {
+      item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
+    });
+
+    // Clonar para el efecto infinito
+    const firstClone = items[0].cloneNode(true);
+    const lastClone = items[items.length - 1].cloneNode(true);
+    track.appendChild(firstClone);
+    track.prepend(lastClone);
+
+    // Ajustar posición inicial
+    const totalItemsWithClones = items.length + 2;
+    const itemWidth = 100 / totalItemsWithClones;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${itemWidth}%)`;
+    currentIndex = 1;
+    track.offsetHeight;
+    track.style.transition = 'transform 0.4s ease';
+
+    // Guardar referencias para los controles
+    window.currentIndex = currentIndex;
+    window.totalItemsWithClones = totalItemsWithClones;
+    window.itemWidth = itemWidth;
+  })();
+
+  // Actualizar función goTo para usar las variables globales
+  const originalGoTo = goTo;
+  goTo = function(index) {
+    const total = window.totalItemsWithClones || (items.length + 2);
+    const itemWidth = window.itemWidth || (100 / total);
+    if (index < 0) {
+      track.style.transition = 'none';
+      window.currentIndex = total - 2;
+      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
+      track.offsetHeight;
+      window.currentIndex = total - 3;
+      track.style.transition = 'transform 0.4s ease';
+      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
+      return;
+    }
+    if (index >= total - 1) {
+      track.style.transition = 'none';
+      window.currentIndex = 1;
+      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
+      track.offsetHeight;
+      window.currentIndex = 1;
+      track.style.transition = 'transform 0.4s ease';
+      track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
+      return;
+    }
+    window.currentIndex = index;
+    track.style.transition = 'transform 0.4s ease';
+    track.style.transform = `translateX(-${window.currentIndex * itemWidth}%)`;
+  };
+
+  // Reasignar eventos
+  document.getElementById('btnNext').onclick = () => {
+    goTo(window.currentIndex + 1);
+  };
+  document.getElementById('btnPrev').onclick = () => {
+    goTo(window.currentIndex - 1);
+  };
+
+  // Recalcular en resize
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      // Recargar la página para simplificar (opcional)
+      // Para una demo, podríamos recargar, pero mejor reiniciamos el carrusel.
+      // Como es una demo, recargamos la página.
+      // window.location.reload();
+      // Pero para no perder el estado, podemos ajustar el ancho de los items
+      const items = track.querySelectorAll('.carrusel-item');
+      const itemsPerView = getItemsPerView();
+      items.forEach(item => {
+        item.style.minWidth = `calc(100% / ${itemsPerView} - 15px)`;
+      });
+      // Recalcular total
+      const total = items.length;
+      const itemWidth = 100 / total;
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${itemWidth}%)`;
+      window.currentIndex = 1;
+      window.totalItemsWithClones = total;
+      window.itemWidth = itemWidth;
+      track.offsetHeight;
+      track.style.transition = 'transform 0.4s ease';
+    }, 400);
+  });
+</script>
+</body>
+</html>
