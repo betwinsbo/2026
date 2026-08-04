@@ -29,31 +29,25 @@
             padding: 0 24px;
         }
 
-        /* ===== HEADER BANNER ===== */
+        /* ===== HEADER BANNER CON LOGO ===== */
         .top-banner {
             background: #223A58;
-            color: white;
             overflow: hidden;
             white-space: nowrap;
-            padding: 12px 0;
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: 4px;
-            text-transform: lowercase;
+            padding: 10px 0;
         }
 
         .top-banner .banner-track {
             display: inline-block;
-            animation: scrollBanner 20s linear infinite;
+            animation: scrollBanner 25s linear infinite;
         }
 
-        .top-banner span {
-            margin: 0 40px;
-        }
-
-        .top-banner .separator {
-            color: rgba(255,255,255,0.3);
+        .top-banner .banner-track img {
+            height: 45px;
+            width: auto;
+            margin: 0 60px;
+            vertical-align: middle;
+            display: inline-block;
         }
 
         @keyframes scrollBanner {
@@ -76,10 +70,13 @@
             font-size: 1rem;
             letter-spacing: 1px;
             font-family: 'Montserrat', sans-serif;
+            text-transform: lowercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .btn-catalogo:hover {
             background: #1a2d45;
+            transform: translateY(-2px);
         }
 
         .btn-instagram {
@@ -114,28 +111,39 @@
             background: #1ebe5c;
         }
 
-        /* ===== PORTADA ===== */
+        /* ===== PORTADA CON BOTÓN SOBREPUESTO ===== */
         .hero-section {
-            padding: 50px 0 30px;
+            padding: 40px 0;
             text-align: center;
         }
 
-        .hero-image {
+        .hero-image-wrapper {
+            position: relative;
             max-width: 700px;
             width: 100%;
             margin: 0 auto;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
-        .hero-image img {
+        .hero-image-wrapper img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        .hero-section .btn-catalogo {
-            margin-top: 28px;
+        .hero-image-wrapper .btn-catalogo {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            margin: 0;
+        }
+
+        .hero-image-wrapper .btn-catalogo:hover {
+            transform: translateX(-50%) translateY(-2px);
         }
 
         /* ===== ABOUT ===== */
@@ -157,6 +165,7 @@
 
         .about-image img {
             width: 100%;
+            border-radius: 20px;
             display: block;
         }
 
@@ -368,24 +377,21 @@
                 min-width: calc(100% / 2 - 12px);
             }
 
-            .top-banner {
-                font-size: 1.1rem;
-                padding: 10px 0;
+            .top-banner .banner-track img {
+                height: 35px;
+                margin: 0 30px;
             }
 
-            .top-banner span {
-                margin: 0 20px;
+            .hero-image-wrapper .btn-catalogo {
+                bottom: 20px;
+                padding: 10px 30px;
+                font-size: 0.85rem;
             }
         }
 
         @media (max-width: 480px) {
             .carrusel-item {
                 min-width: 100%;
-            }
-
-            .hero-section .btn-catalogo {
-                width: 100%;
-                text-align: center;
             }
 
             .about-content h2 {
@@ -395,56 +401,46 @@
             .bestsellers-section h2 {
                 font-size: 2rem;
             }
+
+            .hero-image-wrapper .btn-catalogo {
+                bottom: 15px;
+                padding: 8px 24px;
+                font-size: 0.8rem;
+            }
+
+            .top-banner .banner-track img {
+                height: 28px;
+                margin: 0 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== HEADER BANNER ===== -->
+<!-- ===== HEADER BANNER CON LOGO ===== -->
 <div class="top-banner">
     <div class="banner-track">
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <!-- Repetición para loop -->
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
-        <span>betwins</span>
-        <span class="separator">✦</span>
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
+        <img src="IMG_5892.jpg" alt="Betwins logo" />
     </div>
 </div>
 
 <!-- ===== PORTADA ===== -->
 <section class="hero-section container">
-    <div class="hero-image">
+    <div class="hero-image-wrapper">
         <img src="portada.jpg" alt="Portada Betwins" />
+        <a href="#" class="btn-catalogo">catálogo</a>
     </div>
-    <a href="#" class="btn-catalogo">catálogo</a>
 </section>
 
 <!-- ===== ABOUT ===== -->
@@ -555,41 +551,32 @@
         const itemWidth = 100 / itemsPerView;
         const gap = 24;
 
-        // Ajustar el ancho de los items
         allItems.forEach(item => {
             item.style.minWidth = `calc(${itemWidth}% - ${gap}px)`;
         });
 
-        // Mover el track
         const offset = currentIndex * (itemWidth + (gap * itemsPerView / 100));
         track.style.transform = `translateX(-${offset}%)`;
     }
 
     function goTo(index) {
-        const itemsPerView = getItemsPerView();
         const totalSlides = totalItems + 2;
 
         if (index < 0) {
-            // Ir al último real
             track.style.transition = 'none';
-            currentIndex = totalItems;
+            currentIndex = totalItems - 1;
             updateCarrusel();
             track.offsetHeight;
             track.style.transition = 'transform 0.5s ease';
-            currentIndex = totalItems - 1;
-            updateCarrusel();
             return;
         }
 
         if (index >= totalItems) {
-            // Ir al primer real
             track.style.transition = 'none';
             currentIndex = 1;
             updateCarrusel();
             track.offsetHeight;
             track.style.transition = 'transform 0.5s ease';
-            currentIndex = 1;
-            updateCarrusel();
             return;
         }
 
@@ -601,7 +588,6 @@
     // Inicializar
     updateCarrusel();
 
-    // Eventos de botones
     document.getElementById('btnNext').addEventListener('click', () => {
         clearInterval(autoPlayInterval);
         goTo(currentIndex + 1);
@@ -614,7 +600,6 @@
         autoPlay();
     });
 
-    // Auto-play
     function autoPlay() {
         autoPlayInterval = setInterval(() => {
             goTo(currentIndex + 1);
@@ -623,7 +608,6 @@
 
     autoPlay();
 
-    // Pausar autoplay al hacer hover
     const carruselWrapper = document.querySelector('.carrusel-wrapper');
     carruselWrapper.addEventListener('mouseenter', () => {
         clearInterval(autoPlayInterval);
@@ -632,7 +616,6 @@
         autoPlay();
     });
 
-    // Recalcular al redimensionar
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
