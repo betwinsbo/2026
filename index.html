@@ -31,7 +31,7 @@
 
         /* ===== HEADER BANNER CON LOGO ===== */
         .top-banner {
-            background: #FFFFFF;
+            background: #223A58;
             overflow: hidden;
             white-space: nowrap;
             padding: 10px 0;
@@ -64,7 +64,7 @@
             border-radius: 40px;
             font-weight: 600;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
             border: none;
             cursor: pointer;
             font-size: 1rem;
@@ -161,6 +161,7 @@
 
         .about-image {
             flex: 1 1 300px;
+            order: 2; /* Imagen a la derecha */
         }
 
         .about-image img {
@@ -171,6 +172,7 @@
 
         .about-content {
             flex: 1 1 300px;
+            order: 1; /* Texto a la izquierda */
         }
 
         .about-content h2 {
@@ -217,12 +219,11 @@
         }
 
         .carrusel-item {
-            min-width: calc(100% / 4 - 18px);
+            flex: 0 0 calc(25% - 18px); /* 4 items en desktop */
             background: #f8f6f4;
             border-radius: 20px;
             padding: 16px;
             text-align: center;
-            flex-shrink: 0;
             transition: 0.3s;
         }
 
@@ -354,7 +355,7 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             .carrusel-item {
-                min-width: calc(100% / 3 - 16px);
+                flex: 0 0 calc(33.333% - 16px);
             }
         }
 
@@ -362,6 +363,14 @@
             .about-grid {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .about-image {
+                order: 1;
+            }
+
+            .about-content {
+                order: 2;
             }
 
             .whatsapp-grid {
@@ -374,7 +383,7 @@
             }
 
             .carrusel-item {
-                min-width: calc(100% / 2 - 12px);
+                flex: 0 0 calc(50% - 12px);
             }
 
             .top-banner .banner-track img {
@@ -391,7 +400,7 @@
 
         @media (max-width: 480px) {
             .carrusel-item {
-                min-width: 100%;
+                flex: 0 0 100%;
             }
 
             .about-content h2 {
@@ -446,15 +455,15 @@
 <!-- ===== ABOUT ===== -->
 <section class="about-section">
     <div class="container about-grid">
-        <div class="about-image">
-            <img src="about.jpg" alt="About Betwins" />
-        </div>
         <div class="about-content">
             <h2>About Us</h2>
             <p>Hola twin, somos Nicole y Camila, hemos creado esta marca pensando en darte recursos para que explotes tu creatividad, identidad y potencial. Nuestro objetivo es acompañarte a descubrir que te gusta y sobre todo, que te hace sentir bien, que se refleje en tu día a día y crear en ti un impacto en tu manera de autopercibirte.</p>
             <a href="https://www.instagram.com/betwins.bo" target="_blank" class="btn-instagram">
                 <i class="fab fa-instagram"></i> Saber más
             </a>
+        </div>
+        <div class="about-image">
+            <img src="about.jpg" alt="About Betwins" />
         </div>
     </div>
 </section>
@@ -525,104 +534,127 @@
 
 <!-- ===== CARRUSEL JS ===== -->
 <script>
-    const track = document.getElementById('carruselTrack');
-    const items = track.querySelectorAll('.carrusel-item');
-    const totalItems = items.length;
+    (function() {
+        const track = document.getElementById('carruselTrack');
+        const items = Array.from(track.querySelectorAll('.carrusel-item'));
+        const totalItems = items.length;
+        let currentIndex = 0;
+        let autoPlayInterval;
+        let isTransitioning = false;
 
-    // Clonar para efecto infinito
-    const firstClone = items[0].cloneNode(true);
-    const lastClone = items[totalItems - 1].cloneNode(true);
-    track.appendChild(firstClone);
-    track.prepend(lastClone);
+        function getItemsPerView() {
+            if (window.innerWidth < 480) return 1;
+            if (window.innerWidth < 768) return 2;
+            if (window.innerWidth < 992) return 3;
+            return 4;
+        }
 
-    const allItems = track.querySelectorAll('.carrusel-item');
-    let currentIndex = 1;
-    let autoPlayInterval;
+        function getItemWidth() {
+            const itemsPerView = getItemsPerView();
+            const gap = 24;
+            return (100 / itemsPerView) - (gap * (itemsPerView - 1) / itemsPerView);
+        }
 
-    function getItemsPerView() {
-        if (window.innerWidth < 480) return 1;
-        if (window.innerWidth < 768) return 2;
-        if (window.innerWidth < 992) return 3;
-        return 4;
-    }
+        function updateCarrusel(animate = true) {
+            if (!animate) {
+                track.style.transition = 'none';
+            } else {
+                track.style.transition = 'transform 0.5s ease';
+            }
 
-    function updateCarrusel() {
-        const itemsPerView = getItemsPerView();
-        const itemWidth = 100 / itemsPerView;
-        const gap = 24;
+            const itemsPerView = getItemsPerView();
+            const gap = 24;
+            const width = getItemWidth();
 
-        allItems.forEach(item => {
-            item.style.minWidth = `calc(${itemWidth}% - ${gap}px)`;
+            items.forEach(item => {
+                item.style.flex = `0 0 calc(${width}% - ${gap * (itemsPerView - 1) / itemsPerView}px)`;
+            });
+
+            const offset = currentIndex * (width + gap);
+            track.style.transform = `translateX(-${offset}%)`;
+        }
+
+        function goTo(index, animate = true) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            const totalSlides = items.length;
+
+            if (index < 0) {
+                currentIndex = totalSlides - 1;
+                updateCarrusel(false);
+                setTimeout(() => {
+                    currentIndex = totalSlides - 1;
+                    updateCarrusel(true);
+                    isTransitioning = false;
+                }, 20);
+                return;
+            }
+
+            if (index >= totalSlides) {
+                currentIndex = 0;
+                updateCarrusel(false);
+                setTimeout(() => {
+                    currentIndex = 0;
+                    updateCarrusel(true);
+                    isTransitioning = false;
+                }, 20);
+                return;
+            }
+
+            currentIndex = index;
+            updateCarrusel(animate);
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 600);
+        }
+
+        function next() {
+            goTo(currentIndex + 1);
+        }
+
+        function prev() {
+            goTo(currentIndex - 1);
+        }
+
+        function autoPlay() {
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(next, 4000);
+        }
+
+        // Inicializar
+        updateCarrusel(false);
+        autoPlay();
+
+        // Eventos
+        document.getElementById('btnNext').addEventListener('click', () => {
+            clearInterval(autoPlayInterval);
+            next();
+            autoPlay();
         });
 
-        const offset = currentIndex * (itemWidth + (gap * itemsPerView / 100));
-        track.style.transform = `translateX(-${offset}%)`;
-    }
+        document.getElementById('btnPrev').addEventListener('click', () => {
+            clearInterval(autoPlayInterval);
+            prev();
+            autoPlay();
+        });
 
-    function goTo(index) {
-        const totalSlides = totalItems + 2;
+        const carruselWrapper = document.querySelector('.carrusel-wrapper');
+        carruselWrapper.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+        carruselWrapper.addEventListener('mouseleave', autoPlay);
 
-        if (index < 0) {
-            track.style.transition = 'none';
-            currentIndex = totalItems - 1;
-            updateCarrusel();
-            track.offsetHeight;
-            track.style.transition = 'transform 0.5s ease';
-            return;
-        }
+        // Recalcular al redimensionar
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                updateCarrusel(false);
+            }, 300);
+        });
 
-        if (index >= totalItems) {
-            track.style.transition = 'none';
-            currentIndex = 1;
-            updateCarrusel();
-            track.offsetHeight;
-            track.style.transition = 'transform 0.5s ease';
-            return;
-        }
-
-        currentIndex = index;
-        track.style.transition = 'transform 0.5s ease';
-        updateCarrusel();
-    }
-
-    // Inicializar
-    updateCarrusel();
-
-    document.getElementById('btnNext').addEventListener('click', () => {
-        clearInterval(autoPlayInterval);
-        goTo(currentIndex + 1);
-        autoPlay();
-    });
-
-    document.getElementById('btnPrev').addEventListener('click', () => {
-        clearInterval(autoPlayInterval);
-        goTo(currentIndex - 1);
-        autoPlay();
-    });
-
-    function autoPlay() {
-        autoPlayInterval = setInterval(() => {
-            goTo(currentIndex + 1);
-        }, 4000);
-    }
-
-    autoPlay();
-
-    const carruselWrapper = document.querySelector('.carrusel-wrapper');
-    carruselWrapper.addEventListener('mouseenter', () => {
-        clearInterval(autoPlayInterval);
-    });
-    carruselWrapper.addEventListener('mouseleave', () => {
-        autoPlay();
-    });
-
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            updateCarrusel();
-        }, 300);
-    });
+    })();
 </script>
 </body>
 </html>
