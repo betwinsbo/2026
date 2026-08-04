@@ -146,50 +146,54 @@
             transform: translateX(-50%) translateY(-2px);
         }
 
-        /* ===== ABOUT ===== */
-        .about-section {
-            padding: 70px 0;
-            background: #f8f6f4;
-        }
 
-        .about-grid {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 50px;
-        }
+       /* ===== ABOUT ===== */
+.about-section {
+    padding: 70px 0;
+    background: #f8f6f4;
+}
 
-        .about-image {
-            flex: 1 1 300px;
-            order: 2;
-        }
+.about-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    text-align: center;
+    color: #223A58;
+    margin-bottom: 40px;
+}
 
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-            display: block;
-        }
+.about-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+}
 
-        .about-content {
-            flex: 1 1 300px;
-            order: 1;
-        }
+.about-image {
+    flex: 1 1 300px;
+}
 
-        .about-section h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #223A58;
-        }
+.about-image img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+}
 
-        .about-content p {
-            font-family: 'Montserrat', sans-serif;
-            color: #555;
-            margin-bottom: 24px;
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
+.about-content {
+    flex: 1 1 300px;
+}
+
+.about-content p {
+    font-family: 'Montserrat', sans-serif;
+    color: #555;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.about-content .btn-instagram {
+    display: inline-block;
+}
 
         /* ===== BEST SELLERS ===== */
         .bestsellers-section {
@@ -454,24 +458,20 @@
 </section>
 
 <!-- ===== ABOUT ===== -->
+<!-- ===== ABOUT ===== -->
 <section class="about-section">
-     <h2>About Us</h2>
-    <div class="container about-grid">
-        <div class="about-content">
-            <p>Hola twin..
-Somos Nicole y Camila. Juntas creamos betwins pensando
-en darte recursos para que explores y expreses tu
-creatividad, identidad y potencial. Queremos acompañarte
-a descubrir lo que te gusta y, sobre todo, aquello que te
-hace sentir bien, para que se refleje en tu día a día y
-contribuya a una forma más auténtica y segura de verte a
-ti misma.</p>
-            <a href="https://www.instagram.com/betwins.bo" target="_blank" class="btn-instagram">
-                <i class="fab fa-instagram"></i> Saber más
-            </a>
-        </div>
-        <div class="about-image">
-            <img src="about.jpg" alt="About Betwins" />
+    <div class="container">
+        <h2 class="about-titulo">About Us</h2>
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="about.jpg" alt="About Betwins" />
+            </div>
+            <div class="about-content">
+                <p>Hola twin.. Somos Nicole y Camila. Juntas creamos betwins pensando en darte recursos para que explores y expreses tu creatividad, identidad y potencial. Queremos acompañarte a descubrir lo que te gusta y, sobre todo, aquello que te hace sentir bien, para que se refleje en tu día a día y contribuya a una forma más auténtica y segura de verte a ti misma.</p>
+                <a href="https://www.instagram.com/betwins.bo" target="_blank" class="btn-instagram">
+                    <i class="fab fa-instagram"></i> Saber más
+                </a>
+            </div>
         </div>
     </div>
 </section>
