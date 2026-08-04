@@ -161,7 +161,7 @@
 
         .about-image {
             flex: 1 1 300px;
-            order: 2; /* Imagen a la derecha */
+            order: 2;
         }
 
         .about-image img {
@@ -172,7 +172,7 @@
 
         .about-content {
             flex: 1 1 300px;
-            order: 1; /* Texto a la izquierda */
+            order: 1;
         }
 
         .about-content h2 {
@@ -219,7 +219,8 @@
         }
 
         .carrusel-item {
-            flex: 0 0 calc(25% - 18px); /* 4 items en desktop */
+            flex: 0 0 calc(25% - 18px);
+            min-width: 0;
             background: #f8f6f4;
             border-radius: 20px;
             padding: 16px;
@@ -451,30 +452,21 @@
         <a href="#" class="btn-catalogo">catálogo</a>
     </div>
 </section>
-<!-- ===== HEADER BANNER CON LOGO ===== -->
-<div class="top-banner">
-    <div class="banner-track">
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-        <img src="IMG_5892.jpg" alt="Betwins logo" />
-    </div>
-</div>
 
 <!-- ===== ABOUT ===== -->
 <section class="about-section">
+     <h2>About Us</h2>
     <div class="container about-grid">
         <div class="about-content">
             <h2>About Us</h2>
-            <p>Hola twin, somos Nicole y Camila, hemos creado esta marca pensando en darte recursos para que explotes tu creatividad, identidad y potencial. Nuestro objetivo es acompañarte a descubrir que te gusta y sobre todo, que te hace sentir bien, que se refleje en tu día a día y crear en ti un impacto en tu manera de autopercibirte.</p>
+            <p>Hola twin..
+Somos Nicole y Camila. Juntas creamos betwins pensando
+en darte recursos para que explores y expreses tu
+creatividad, identidad y potencial. Queremos acompañarte
+a descubrir lo que te gusta y, sobre todo, aquello que te
+hace sentir bien, para que se refleje en tu día a día y
+contribuya a una forma más auténtica y segura de verte a
+ti misma.</p>
             <a href="https://www.instagram.com/betwins.bo" target="_blank" class="btn-instagram">
                 <i class="fab fa-instagram"></i> Saber más
             </a>
@@ -496,19 +488,19 @@
             </div>
             <div class="carrusel-item">
                 <img src="Untitled design - 2.png" alt="Cozy" />
-                <div class="nombre-producto">Golden Hour</div>
-            </div>
-            <div class="carrusel-item">
-                <img src="Untitled design - 3.png" alt="Romantic" />
-                <div class="nombre-producto">Naked</div>
-            </div>
-            <div class="carrusel-item">
-                <img src="Untitled design - 4.png" alt="Golden Hour" />
                 <div class="nombre-producto">Cozy</div>
             </div>
             <div class="carrusel-item">
-                <img src="Untitled design - 5.png" alt="Naked" />
+                <img src="Untitled design - 3.png" alt="Romantic" />
                 <div class="nombre-producto">Romantic</div>
+            </div>
+            <div class="carrusel-item">
+                <img src="Untitled design - 4.png" alt="Golden Hour" />
+                <div class="nombre-producto">Golden Hour</div>
+            </div>
+            <div class="carrusel-item">
+                <img src="Untitled design - 5.png" alt="Naked" />
+                <div class="nombre-producto">Naked</div>
             </div>
         </div>
     </div>
@@ -532,7 +524,7 @@
             </a>
         </div>
         <div class="whatsapp-image">
-            <img src="IMG_6046.PNG" alt="Logo Betwins" />
+            <img src="logo.jpg" alt="Logo Betwins" />
         </div>
     </div>
 </section>
@@ -560,34 +552,29 @@
         let isTransitioning = false;
 
         function getItemsPerView() {
-            if (window.innerWidth < 480) return 1;
-            if (window.innerWidth < 768) return 2;
-            if (window.innerWidth < 992) return 3;
+            const width = window.innerWidth;
+            if (width < 480) return 1;
+            if (width < 768) return 2;
+            if (width < 992) return 3;
             return 4;
         }
 
-        function getItemWidth() {
+        function updateCarrusel(animate = true) {
             const itemsPerView = getItemsPerView();
             const gap = 24;
-            return (100 / itemsPerView) - (gap * (itemsPerView - 1) / itemsPerView);
-        }
+            const itemWidth = `calc(${100 / itemsPerView}% - ${gap * (itemsPerView - 1) / itemsPerView}px)`;
 
-        function updateCarrusel(animate = true) {
+            items.forEach(item => {
+                item.style.flex = `0 0 ${itemWidth}`;
+            });
+
             if (!animate) {
                 track.style.transition = 'none';
             } else {
                 track.style.transition = 'transform 0.5s ease';
             }
 
-            const itemsPerView = getItemsPerView();
-            const gap = 24;
-            const width = getItemWidth();
-
-            items.forEach(item => {
-                item.style.flex = `0 0 calc(${width}% - ${gap * (itemsPerView - 1) / itemsPerView}px)`;
-            });
-
-            const offset = currentIndex * (width + gap);
+            const offset = currentIndex * (100 / itemsPerView + gap);
             track.style.transform = `translateX(-${offset}%)`;
         }
 
@@ -595,27 +582,26 @@
             if (isTransitioning) return;
             isTransitioning = true;
 
-            const totalSlides = items.length;
+            const itemsPerView = getItemsPerView();
+            const maxIndex = totalItems - itemsPerView;
 
             if (index < 0) {
-                currentIndex = totalSlides - 1;
+                currentIndex = maxIndex;
                 updateCarrusel(false);
                 setTimeout(() => {
-                    currentIndex = totalSlides - 1;
-                    updateCarrusel(true);
                     isTransitioning = false;
-                }, 20);
+                    goTo(maxIndex, true);
+                }, 50);
                 return;
             }
 
-            if (index >= totalSlides) {
+            if (index > maxIndex) {
                 currentIndex = 0;
                 updateCarrusel(false);
                 setTimeout(() => {
-                    currentIndex = 0;
-                    updateCarrusel(true);
                     isTransitioning = false;
-                }, 20);
+                    goTo(0, true);
+                }, 50);
                 return;
             }
 
@@ -627,11 +613,22 @@
         }
 
         function next() {
-            goTo(currentIndex + 1);
+            const itemsPerView = getItemsPerView();
+            const maxIndex = totalItems - itemsPerView;
+            if (currentIndex >= maxIndex) {
+                goTo(0, true);
+            } else {
+                goTo(currentIndex + 1);
+            }
         }
 
         function prev() {
-            goTo(currentIndex - 1);
+            if (currentIndex <= 0) {
+                const itemsPerView = getItemsPerView();
+                goTo(totalItems - itemsPerView, true);
+            } else {
+                goTo(currentIndex - 1);
+            }
         }
 
         function autoPlay() {
@@ -662,11 +659,14 @@
         });
         carruselWrapper.addEventListener('mouseleave', autoPlay);
 
-        // Recalcular al redimensionar
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
+                const itemsPerView = getItemsPerView();
+                if (currentIndex > totalItems - itemsPerView) {
+                    currentIndex = totalItems - itemsPerView;
+                }
                 updateCarrusel(false);
             }, 300);
         });
